@@ -9,10 +9,21 @@ function App() {
 
   const apiURL = import.meta.env.VITE_API_URL;
 
-  useEffect(() => {
-    if (mapInstanceRef.current) return;
 
-    mapInstanceRef.current = L.map(mapRef.current).setView([40.8656557, -73.8079112], 13);
+useEffect(() => {
+  console.log('1. useEffect started');
+  console.log('2. mapRef.current:', mapRef.current);
+  console.log('3. mapInstanceRef.current:', mapInstanceRef.current);
+  
+  if (mapInstanceRef.current) {
+    console.log('4. Map already exists, returning early');
+    return;
+  }
+
+  console.log('5. About to create map');
+  mapInstanceRef.current = L.map(mapRef.current).setView([40.8656557, -73.8079112], 13);
+  console.log('6. Map created:', mapInstanceRef.current);
+  
 
     L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png', {
       maxZoom: 20,
@@ -29,6 +40,7 @@ function App() {
             const trailDifficulty = feature.properties.difficulty
             const trailSurface = feature.properties.surface
             const trailClass = feature.properties.class
+            const trailWidth = feature.properties.width_ft
 
             layer.bindPopup(`
               <div>
@@ -38,6 +50,7 @@ function App() {
                 <p><strong>Trail Difficulty:</strong> ${trailDifficulty}</p>
                 <p><strong>Trail Surface:</strong> ${trailSurface}</p>
                 <p><strong>Trail Class:</strong> ${trailClass}</p>
+                <p><strong>Trail Width:</strong> ${trailWidth}</p>
                 </div>`)
           }
         }).addTo(mapInstanceRef.current)
@@ -54,8 +67,7 @@ function App() {
 
   return (
     <>
-      <h1>Park Trails</h1>
-      <div ref={mapRef} id="map" style={{ height: '600px', width: '100%' }}></div>
+      <div ref={mapRef} id="map" style={{ height: '100vh', width: '100%' }}></div>
     </>
   )
 }
