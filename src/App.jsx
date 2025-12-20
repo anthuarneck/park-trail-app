@@ -7,30 +7,23 @@ function App() {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
 
-  const apiURL = import.meta.env.VITE_API_URL;
+  const trailUrl = import.meta.env.VITE_TRAIL_API_URL;
+  const weatherUrl = import.meta.env.VITE_WEATHER_API_URL;
 
 
 useEffect(() => {
-  console.log('1. useEffect started');
-  console.log('2. mapRef.current:', mapRef.current);
-  console.log('3. mapInstanceRef.current:', mapInstanceRef.current);
-  
   if (mapInstanceRef.current) {
-    console.log('4. Map already exists, returning early');
     return;
   }
 
-  console.log('5. About to create map');
   mapInstanceRef.current = L.map(mapRef.current).setView([40.8656557, -73.8079112], 13);
-  console.log('6. Map created:', mapInstanceRef.current);
   
-
     L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png', {
       maxZoom: 20,
       attribution: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapInstanceRef.current);
 
-    fetch(apiURL)
+    fetch(trailUrl)
       .then((response) => response.json())
       .then((responseJSON) => {
         L.geoJSON(responseJSON, {
