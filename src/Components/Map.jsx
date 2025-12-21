@@ -65,7 +65,7 @@ function Map() {
   }, []);
 
   return (
-    <div ref={mapRef} id="map" style={{ height: "100vh", width: "100%" }}></div>
+    <div ref={mapRef} id="map" style={{ height: "100vh", width: "100%", postition: "relative", zIndex: 1 }}></div>
   );
 }
 
