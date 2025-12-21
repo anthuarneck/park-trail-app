@@ -10,6 +10,23 @@ function App() {
   const trailUrl = import.meta.env.VITE_TRAIL_API_URL;
   const weatherUrl = import.meta.env.VITE_WEATHER_API_URL;
 
+  const [temperature, setTemperature] = useState("");
+  const [weatherIcon, setWeatherIcon] = useState("");
+
+
+  useEffect(() => {
+    fetch(`${weatherUrl}`)
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      setTemperature(responseJSON.current.temp_f)
+      setWeatherIcon(responseJSON.current.condition.icon)
+      console.log(temperature, weatherIcon)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  }, []);
+
 
 useEffect(() => {
   if (mapInstanceRef.current) {
