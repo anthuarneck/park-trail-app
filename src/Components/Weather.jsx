@@ -19,10 +19,11 @@ function Weather() {
       });
   }, []);
 
-  console.log(temperature, weatherIcon);
-
   return (
-    <div style={{ position: "fixed", zIndex: 2, top: "30px", left: "50px" }}>
+    <div
+      className="weatherContainer"
+      style={{ position: "fixed", zIndex: 2, top: "75px" }}
+    >
       {weatherIcon && <img src={weatherIcon} alt="weather icon" />}
       {temperature && `${temperature}°F`}
     </div>
