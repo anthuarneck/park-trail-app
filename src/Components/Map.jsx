@@ -15,8 +15,14 @@ function Map() {
       return;
     }
 
-    mapInstanceRef.current = L.map(mapRef.current).setView(
-      [40.8656557, -73.8079112],
+    mapInstanceRef.current = L.map(mapRef.current, {
+      maxBounds: [
+        [40.45, -74.3],
+        [41.3, 73.0]
+      ],
+      minZoom: 11
+    }).setView(
+      [40.7127, -74.0059],
       13
     );
 

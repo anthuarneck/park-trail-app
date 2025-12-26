@@ -8,7 +8,7 @@ body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(203, 237, 250, 0.801);
+  background-color: rgba(203, 237, 250, 0.842);
   border-radius: 5%;
 }
 
