@@ -31,7 +31,7 @@ function Map() {
     });
 
     mapInstanceRef.current.on("locationerror", (e) => {
-      console.loge("Location error:", e.message)
+      console.log("Location error:", e.message)
     })
 
     L.tileLayer(
@@ -47,6 +47,9 @@ function Map() {
       .then((response) => response.json())
       .then((responseJSON) => {
         L.geoJSON(responseJSON, {
+          style: {
+            weight: 6
+          },
           onEachFeature: (feature, layer) => {
             const parkName = feature.properties.park_name;
             const trailName = feature.properties.trail_name;
@@ -66,6 +69,7 @@ function Map() {
                 <p><strong>Trail Width:</strong> ${trailWidth}</p>
                 </div>`);
           },
+
         }).addTo(mapInstanceRef.current);
       })
       .catch((error) => console.log(error));
