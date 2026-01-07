@@ -18,13 +18,21 @@ function Map() {
     mapInstanceRef.current = L.map(mapRef.current, {
       maxBounds: [
         [40.45, -74.3],
-        [41.3, 73.0]
+        [41.3, 73.0],
       ],
-      minZoom: 11
-    }).setView(
-      [40.7127, -74.0059],
-      13
-    );
+      minZoom: 11,
+    }).setView([40.7127, -74.0059], 13);
+
+    mapInstanceRef.current.locate();
+
+    mapInstanceRef.current.on("locationfound", (e) => {
+      console.log("User location found:", e.latlng);
+      mapInstanceRef.current.setView(e.latlng, 15);
+    });
+
+    mapInstanceRef.current.on("locationerror", (e) => {
+      console.loge("Location error:", e.message)
+    })
 
     L.tileLayer(
       "https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png",
@@ -71,7 +79,16 @@ function Map() {
   }, []);
 
   return (
-    <div ref={mapRef} id="map" style={{ height: "100vh", width: "100%", postition: "relative", zIndex: 1 }}></div>
+    <div
+      ref={mapRef}
+      id="map"
+      style={{
+        height: "100vh",
+        width: "100%",
+        postition: "relative",
+        zIndex: 1,
+      }}
+    ></div>
   );
 }
 
