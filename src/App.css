@@ -10,8 +10,9 @@ body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(203, 237, 250, 0.842);
+  background-color: rgba(203, 237, 250, 0.932);
   border-radius: 5%;
+  margin: 12px;
 }
 
 /* #root {
