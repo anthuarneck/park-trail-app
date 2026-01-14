@@ -60,8 +60,8 @@ npm run dev
 
 ## Data Sources
 
-- [NYC Open Data - Park Trails](https://data.cityofnewyork.us/)
-- [NYC Open Data - Park Restrooms](https://data.cityofnewyork.us/)
+- [NYC Open Data - Park Trails](https://data.cityofnewyork.us/Environment/Parks-Trails/vjbm-hsyr/about_data)
+- [NYC Open Data - Park Restrooms](https://data.cityofnewyork.us/Recreation/Directory-Of-Toilets-In-Public-Parks/hjae-yuav/about_data)
 - [Weather API](https://www.weatherapi.com/)
 
 ## Author
