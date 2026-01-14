@@ -50,14 +50,14 @@ function Map() {
         L.geoJSON(responseJSON, {
           style: (feature) => {
             return {
-              color: "3388ff",
+              color: "#3388ff",
               weight: 6,
             };
           },
           onEachFeature: (feature, layer) => {
             layer.on("click", () => {
               if (selectedLayerRef.current) {
-                selectedLayerRef.current.setStyle({ color: "3388ff", weight: 6 });
+                selectedLayerRef.current.setStyle({ color: "#3388ff", weight: 6 });
               }
 
               layer.setStyle({ color: "yellow", weight: 6 });
