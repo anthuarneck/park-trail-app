@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css";
 function Map() {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const selectedLayerRef = useRef(null);
 
   const trailUrl = import.meta.env.VITE_TRAIL_API_URL;
 
@@ -31,8 +32,8 @@ function Map() {
     });
 
     mapInstanceRef.current.on("locationerror", (e) => {
-      console.log("Location error:", e.message)
-    })
+      console.log("Location error:", e.message);
+    });
 
     L.tileLayer(
       "https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png",
@@ -47,10 +48,22 @@ function Map() {
       .then((response) => response.json())
       .then((responseJSON) => {
         L.geoJSON(responseJSON, {
-          style: {
-            weight: 6
+          style: (feature) => {
+            return {
+              color: "3388ff",
+              weight: 6,
+            };
           },
           onEachFeature: (feature, layer) => {
+            layer.on("click", () => {
+              if (selectedLayerRef.current) {
+                selectedLayerRef.current.setStyle({ color: "3388ff", weight: 6 });
+              }
+
+              layer.setStyle({ color: "yellow", weight: 6 });
+
+              selectedLayerRef.current = layer;
+            });
             const parkName = feature.properties.park_name;
             const trailName = feature.properties.trail_name;
             const trailDifficulty = feature.properties.difficulty;
@@ -69,7 +82,6 @@ function Map() {
                 <p><strong>Trail Width:</strong> ${trailWidth}</p>
                 </div>`);
           },
-
         }).addTo(mapInstanceRef.current);
       })
       .catch((error) => console.log(error));
