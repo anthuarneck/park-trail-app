@@ -44,6 +44,13 @@ function Map() {
       }
     ).addTo(mapInstanceRef.current);
 
+    mapInstanceRef.current.on("click", () => {
+      if (selectedLayerRef.current) {
+        selectedLayerRef.current.setStyle({ color: "#3388ff", weight: 6 });
+        selectedLayerRef.current = null;
+      }
+    });
+
     fetch(trailUrl)
       .then((response) => response.json())
       .then((responseJSON) => {
@@ -57,7 +64,10 @@ function Map() {
           onEachFeature: (feature, layer) => {
             layer.on("click", () => {
               if (selectedLayerRef.current) {
-                selectedLayerRef.current.setStyle({ color: "#3388ff", weight: 6 });
+                selectedLayerRef.current.setStyle({
+                  color: "#3388ff",
+                  weight: 6,
+                });
               }
 
               layer.setStyle({ color: "yellow", weight: 6 });
@@ -81,6 +91,12 @@ function Map() {
                 <p><strong>Trail Class:</strong> ${trailClass}</p>
                 <p><strong>Trail Width:</strong> ${trailWidth}</p>
                 </div>`);
+            layer.on("popupclose", () => {
+              if (selectedLayerRef.current === layer) {
+                layer.setStyle({ color: "#3388ff", weight: 6 });
+                selectedLayerRef.current = null;
+              }
+            });
           },
         }).addTo(mapInstanceRef.current);
       })
