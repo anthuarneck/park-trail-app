@@ -70,7 +70,7 @@ function Map() {
                 });
               }
 
-              layer.setStyle({ color: "yellow", weight: 6 });
+              layer.setStyle({ color: "#ffa808ff", weight: 6 });
 
               selectedLayerRef.current = layer;
             });
